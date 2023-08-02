@@ -45,10 +45,20 @@ jobs:
         run: |
           ls -l
           cat codeguru-security-results.sarif.json
-
       # If you want content in security scanning, you’ll need to enable codescanning by going into github.
       # https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning-for-a-repository
       - name: Upload result
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: codeguru-security-results.sarif.json
+      - name: Post SARIF findings in the pull request
+        if: github.event_name == 'pull_request'
+        uses: sett-and-hive/sarif-to-comment-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          branch: ${{ github.head_ref }}
+          pr-number: ${{ github.event.number }}
+          sarif-file: codeguru-security-results.sarif.json
+          title: My security issue
+          dry-run: false
