@@ -2,6 +2,15 @@ name: CodeGuru Security Check
 on:
   pull_request:
     # for all branches (no filter)
+  # On-demand analysis via "Run workflow" button.
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'debug'
+      tags:
+        description: 'Test scenario tags'
 
 permissions:
   id-token: write
