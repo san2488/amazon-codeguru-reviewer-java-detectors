@@ -8,7 +8,7 @@ package detectors.hardcoded_credentials;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class HardcodedCredentials {
+public class HardcodedCredentials2 {
 
     // {fact rule=hardcoded-credentials@v1.0 defects=1}
     public void createSqlConnectionNoncompliant() throws Exception {
